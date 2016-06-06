@@ -10,8 +10,36 @@ namespace NumeroPyramidi
     {
         static void Main(string[] args)
         {
-            PrintPyramidSingleThread();
+            PrintPyramidMultiThread();
+            //PrintPyramidSingleThread();
             Console.ReadKey();
+        }
+
+        static void PrintPyramidMultiThread()
+        {
+            List<List<int>> output = new List<List<int>>();
+            Parallel.For(1, 10, i =>
+            {
+                List<int> row = new List<int>();
+
+                int rowLength = i * 2 - 1;
+                for (int x = 0; x < rowLength; x++)
+                {
+                    if (x <= rowLength / 2)
+                        row.Add(FixOutput(i + x));
+                    else
+                        row.Add(FixOutput(rowLength - (x - rowLength / 2)));
+                }
+
+                output.Add(row);
+            });
+
+            for (int i = 1; i < 10; i++) // i on ensimmäinen numero rivillä
+            {
+                Console.SetCursorPosition(GetConsolePosition(i), i);
+                int[] arrayOfRow = output[i - 1].ToArray();
+                Console.Write(string.Join("", arrayOfRow));
+            }
         }
 
         static void PrintPyramidSingleThread()
