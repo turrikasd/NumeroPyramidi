@@ -8,6 +8,8 @@ namespace NumeroPyramidi
 {
     class Program
     {
+        const int numRows = 10;
+
         static void Main(string[] args)
         {
             PrintPyramidMultiThread();
@@ -18,7 +20,12 @@ namespace NumeroPyramidi
         static void PrintPyramidMultiThread()
         {
             List<List<int>> output = new List<List<int>>();
-            Parallel.For(1, 10, i =>
+            for (int i = 0; i <= numRows; i++) // add elements to the collection
+            {
+                output.Add(new List<int>());
+            }
+
+            Parallel.For(1, numRows + 1, i =>
             {
                 List<int> row = new List<int>();
 
@@ -31,10 +38,10 @@ namespace NumeroPyramidi
                         row.Add(FixOutput(rowLength - (x - rowLength / 2)));
                 }
 
-                output.Add(row);
+                output[i - 1] = row;
             });
 
-            for (int i = 1; i < 10; i++) // i on ensimmäinen numero rivillä
+            for (int i = 1; i <= numRows; i++) // i on ensimmäinen numero rivillä
             {
                 Console.SetCursorPosition(GetConsolePosition(i), i);
                 int[] arrayOfRow = output[i - 1].ToArray();
@@ -44,7 +51,7 @@ namespace NumeroPyramidi
 
         static void PrintPyramidSingleThread()
         {
-            for (int i = 1; i < 10; i++) // i on ensimmäinen numero rivillä
+            for (int i = 1; i <= numRows; i++) // i on ensimmäinen numero rivillä
             {
                 Console.SetCursorPosition(GetConsolePosition(i), i);
 
