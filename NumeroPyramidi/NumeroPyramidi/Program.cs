@@ -11,13 +11,15 @@ namespace NumeroPyramidi
         static void Main(string[] args)
         {
             PrintPyramidSingleThread();
+            Console.ReadKey();
         }
 
         static void PrintPyramidSingleThread()
         {
             for (int i = 1; i < 10; i++) // i on ensimmäinen numero rivillä
             {
-                
+                Console.SetCursorPosition(GetConsolePosition(i), i);
+                Console.Write(i);
             }
         }
 
@@ -27,6 +29,16 @@ namespace NumeroPyramidi
                 input -= 10;
 
             return input;
+        }
+
+        static int GetConsoleWidth()
+        {
+            return Console.WindowWidth;
+        }
+
+        static int GetConsolePosition(int row)
+        {
+            return GetConsoleWidth() / 2 - row;
         }
     }
 }
