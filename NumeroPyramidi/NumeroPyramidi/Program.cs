@@ -61,12 +61,8 @@ namespace NumeroPyramidi
 
         static int FixOutput(int input)
         {
-            int inputOver = input / 10;
-
-            if (input >= 10)
-                input -= inputOver * 10;
-
-            return input;
+            int output = input % 10;
+            return output;
         }
 
         static void WriteCorrectedInt(int input)
