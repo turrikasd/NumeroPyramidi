@@ -12,8 +12,8 @@ namespace NumeroPyramidi
 
         static void Main(string[] args)
         {
-            PrintPyramidMultiThread();
-            //PrintPyramidSingleThread();
+            //PrintPyramidMultiThread();
+            PrintPyramidSingleThread();
             Console.ReadKey();
         }
 
@@ -43,7 +43,15 @@ namespace NumeroPyramidi
 
             for (int i = 1; i <= numRows; i++) // i on ensimmäinen numero rivillä
             {
-                Console.SetCursorPosition(GetConsolePosition(i), i);
+                try
+                {
+                    Console.SetCursorPosition(GetConsolePosition(i), i);
+                }
+                catch (System.ArgumentOutOfRangeException e)
+                {
+                    break; // Break if console out of bounds exception
+                }
+
                 int[] arrayOfRow = output[i - 1].ToArray();
                 Console.Write(string.Join("", arrayOfRow));
             }
@@ -53,7 +61,14 @@ namespace NumeroPyramidi
         {
             for (int i = 1; i <= numRows; i++) // i on ensimmäinen numero rivillä
             {
-                Console.SetCursorPosition(GetConsolePosition(i), i);
+                try
+                {
+                    Console.SetCursorPosition(GetConsolePosition(i), i);
+                }
+                catch (System.ArgumentOutOfRangeException e)
+                {
+                    break; // Break if console out of bounds exception
+                }
 
                 int rowLength = i * 2 - 1;
                 for (int x = 0; x < rowLength; x++)
