@@ -19,16 +19,31 @@ namespace NumeroPyramidi
             for (int i = 1; i < 10; i++) // i on ensimmäinen numero rivillä
             {
                 Console.SetCursorPosition(GetConsolePosition(i), i);
-                Console.Write(i);
+
+                int rowLength = i * 2 - 1;
+                for (int x = 0; x < rowLength; x++)
+                {
+                    if (x <= rowLength / 2)
+                        WriteCorrectedInt(i + x);
+                    else
+                        WriteCorrectedInt(rowLength - (x - rowLength / 2));
+                }
             }
         }
 
         static int FixOutput(int input)
         {
+            int inputOver = input / 10;
+
             if (input >= 10)
-                input -= 10;
+                input -= inputOver * 10;
 
             return input;
+        }
+
+        static void WriteCorrectedInt(int input)
+        {
+            Console.Write(FixOutput(input));
         }
 
         static int GetConsoleWidth()
